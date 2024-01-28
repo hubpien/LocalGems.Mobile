@@ -1,11 +1,6 @@
-@LocalGems.API_HostAddress = http://localhost:5011
+@LocalGems.API_HostAddress = http://localhost:5210
 
-GET {{LocalGems.API_HostAddress}}/todos/
-Accept: application/json
-
-###
-
-GET {{LocalGems.API_HostAddress}}/todos/1
+GET {{LocalGems.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
