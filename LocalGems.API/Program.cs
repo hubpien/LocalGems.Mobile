@@ -1,14 +1,20 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+
+var sqlCon = builder.Configuration["ConnectionStrings"];
 
 // Add services to the container.
 
 builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
 builder.Services.AddAuthorizationBuilder();
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSqlServer<AppDbContext>(sqlCon, options => options.EnableRetryOnFailure());
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//  options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -24,13 +30,12 @@ var app = builder.Build();
 
 app.MapIdentityApi<IdentityUser>();
 
+app.MapGet("/", () => "Hello World!");
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseExceptionHandler("/Error");
 
 app.UseHttpsRedirection();
 
