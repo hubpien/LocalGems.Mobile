@@ -1,5 +1,7 @@
+using LocalGems.API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,7 @@ var app = builder.Build();
 
 app.MapIdentityApi<IdentityUser>();
 
+app.MapGet("/", () => "Hello World!");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

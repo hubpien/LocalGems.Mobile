@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using LocalGems.Services;
+using LocalGems.View;
+using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace LocalGems
 {
@@ -9,6 +12,7 @@ namespace LocalGems
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .ConfigureSyncfusionCore()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -18,6 +22,10 @@ namespace LocalGems
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddTransient<AuthService>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<LoadingPage>();
+            builder.Services.AddTransient<MainPage>();
 
             return builder.Build();
         }
