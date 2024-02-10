@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LocalGems"
+             xmlns:rp="clr-namespace:LocalGems.Repository"
+             xmlns:behavior="clr-namespace:LocalGems.Behavior"
+             xmlns:model="clr-namespace:LocalGems.Models"
+             xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
+             x:Class="LocalGems.View.ListExplerePage"
+             xmlns:card="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView">
+    <ContentPage.BindingContext>
+        <rp:UsersRepository />
+    </ContentPage.BindingContext>
+
+    <syncfusion:SfListView x:Name="listView" 
+                   ItemsSource="{Binding Users}"
+                   ItemSize="100">
+        <syncfusion:SfListView.ItemTemplate>
+
+            <DataTemplate>
+                <Grid Padding="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.1*"/>
+                        <ColumnDefinition Width="0.9*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.4*" />
+                        <RowDefinition Height="0.6*" />
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="0" Source="Resources/profile.png"> </Image>
+
+                    <Label Grid.Column="1"  Text="{Binding Name}" FontAttributes="Bold" TextColor="{StaticResource PrimaryDarkText}" FontSize="21" />
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Description}" TextColor="{StaticResource PrimaryDarkText}" FontSize="15"/>
+                </Grid>
+            </DataTemplate>
+        </syncfusion:SfListView.ItemTemplate>
+    </syncfusion:SfListView>
+    
+
+</ContentPage>

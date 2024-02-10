@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LocalGems"
+             xmlns:behavior="clr-namespace:LocalGems.Behavior"
+             xmlns:model="clr-namespace:LocalGems.Models"
+             xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
+             x:Class="LocalGems.View.MapExplerePage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MapMarkerTemplate">
+                <StackLayout HorizontalOptions="StartAndExpand"
+                         VerticalOptions="Center">
+                    <Image Source="map.png"
+                       HeightRequest="30"
+                       WidthRequest="30" />
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Behaviors>
+        <behavior:MapsBehavior />
+    </ContentPage.Behaviors>
+    
+    <map:SfMaps>
+        <map:SfMaps.Layer>
+            <map:MapTileLayer x:Name="tileLayer" UrlTemplate="https://tile.openstreetmap.org/{z}/{x}/{y}.png"  EnableCenterAnimation="True"
+                            Radius="5"
+   	                        DistanceType="Kilometer"
+                            MarkerTemplate="{StaticResource MapMarkerTemplate}"
+                            ShowMarkerTooltip="True">
+
+                <map:MapTileLayer.ZoomPanBehavior>
+                    <map:MapZoomPanBehavior ZoomLevel="3" MinZoomLevel="3" MaxZoomLevel="10"></map:MapZoomPanBehavior>
+                </map:MapTileLayer.ZoomPanBehavior>
+                
+                <map:MapTileLayer.Markers>
+                    <map:MapMarkerCollection>
+                        <model:CustomMarker x:Name="CurrentLocationMarker"></model:CustomMarker>
+                    </map:MapMarkerCollection>
+                </map:MapTileLayer.Markers>
+
+                <map:MapTileLayer.MarkerTooltipTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10"
+                          WidthRequest="150">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding DataItem.Name}"
+                               TextColor="White"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               Padding="10" />
+                            <Label Grid.Row="2"
+                               Grid.ColumnSpan="2"
+                               Text="{Binding DataItem.Description}"
+                               TextColor="White" />
+                        </Grid>
+                    </DataTemplate>
+                </map:MapTileLayer.MarkerTooltipTemplate>
+
+            </map:MapTileLayer>
+        </map:SfMaps.Layer>
+    </map:SfMaps>
+</ContentPage>

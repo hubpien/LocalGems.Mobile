@@ -1,4 +1,4 @@
-namespace LocalGems;
+namespace LocalGems.View;
 
 public partial class HomePage : ContentPage
 {
