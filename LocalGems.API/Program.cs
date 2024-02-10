@@ -1,6 +1,7 @@
 using LocalGems.API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory())),
+    RequestPath = "/doc"
+});
 
 app.UseHttpsRedirection();
 
