@@ -57,11 +57,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Models\NewFolder\**" />
+	  <AndroidResource Remove="NewFolder\**" />
+	  <Compile Remove="Models\NewFolder\**" />
+	  <Compile Remove="NewFolder\**" />
+	  <EmbeddedResource Remove="Models\NewFolder\**" />
+	  <EmbeddedResource Remove="NewFolder\**" />
+	  <MauiCss Remove="Models\NewFolder\**" />
+	  <MauiCss Remove="NewFolder\**" />
+	  <MauiXaml Remove="Models\NewFolder\**" />
+	  <MauiXaml Remove="NewFolder\**" />
+	  <None Remove="Models\NewFolder\**" />
+	  <None Remove="NewFolder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\profile.png" />
 	  <None Remove="Resources\Images\side-img.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Bogus" Version="35.4.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
@@ -115,11 +131,6 @@
 	  <MauiXaml Update="View\Templates\SuggestedItemTemplate.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\NewFolder\" />
-	  <Folder Include="NewFolder\" />
 	</ItemGroup>
 
 	<ItemGroup>

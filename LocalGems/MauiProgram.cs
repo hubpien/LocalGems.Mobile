@@ -1,5 +1,6 @@
 ﻿using LocalGems.Services;
 using LocalGems.View;
+using LocalGems.ViewModels;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
 
@@ -22,10 +23,14 @@ namespace LocalGems
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddTransient<AuthService>();
-            builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<LoadingPage>();
+            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<LoadingPage>();
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<MainViewModel>();
+
+            builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
+
 
             return builder.Build();
         }

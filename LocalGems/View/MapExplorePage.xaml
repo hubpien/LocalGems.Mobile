@@ -4,9 +4,15 @@
              xmlns:local="clr-namespace:LocalGems"
              xmlns:behavior="clr-namespace:LocalGems.Behavior"
              xmlns:model="clr-namespace:LocalGems.Models"
+             xmlns:vm="clr-namespace:LocalGems.ViewModels"
              xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
-             x:Class="LocalGems.View.MapExplerePage">
-    
+             x:Class="LocalGems.View.MapExplerePage"
+             >
+    <ContentPage.BindingContext>
+        <vm:MapExploreViewModel></vm:MapExploreViewModel>
+    </ContentPage.BindingContext>
+
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MapMarkerTemplate">
@@ -33,7 +39,7 @@
                             ShowMarkerTooltip="True">
 
                 <map:MapTileLayer.ZoomPanBehavior>
-                    <map:MapZoomPanBehavior ZoomLevel="3" MinZoomLevel="3" MaxZoomLevel="10"></map:MapZoomPanBehavior>
+                    <map:MapZoomPanBehavior ZoomLevel="3" MinZoomLevel="3" MaxZoomLevel="20"></map:MapZoomPanBehavior>
                 </map:MapTileLayer.ZoomPanBehavior>
                 
                 <map:MapTileLayer.Markers>

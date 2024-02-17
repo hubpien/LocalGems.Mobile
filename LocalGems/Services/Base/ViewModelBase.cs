@@ -1,4 +1,6 @@
-﻿namespace LocalGems.ViewModels
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace LocalGems.ViewModels
 {
     public class ViewModelBase : BindableObject
     {

@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace LocalGems.ViewModels
 {
-    public class MapExploreViewModel : ViewModelBase
+    public partial class MapExploreViewModel : ViewModelBase
     {
         User _user;
 
@@ -19,35 +19,37 @@ namespace LocalGems.ViewModels
                 OnPropertyChanged();
             }
         }
+        private ObservableCollection<CustomMarker> _markers;
 
-        //public ObservableCollection<CustomMarker> markers
-        //{
-        //    get { return _markers; }
-        //    set
-        //    {
-        //        _markers = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
 
-        //public ICommand BackCommand => new Command(OnBack);
+        public ObservableCollection<CustomMarker> markers
+        {
+            get { return _markers; }
+            set
+            {
+                _markers = value;
+                OnPropertyChanged();
+            }
+        }
 
-        //public override Task InitializeAsync(object navigationData)
-        //{
-        //    if (navigationData is Message message)
-        //    {
-        //        User = message.Sender;
-        //    }
+        public ICommand BackCommand => new Command(OnBack);
 
-        //    return base.InitializeAsync(navigationData);
-        //}
+        public override Task InitializeAsync(object navigationData)
+        {
+            if (navigationData is Message message)
+            {
+                User = message.Sender;
+            }
 
-        //void OnBack()
-        //{
-        //    NavigationService.Instance.NavigateBackAsync();
-        //}
+            return base.InitializeAsync(navigationData);
+        }
 
-       
+        void OnBack()
+        {
+            NavigationService.Instance.NavigateBackAsync();
+        }
+
+
 
     }
 }
