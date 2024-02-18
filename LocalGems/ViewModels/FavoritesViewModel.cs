@@ -4,14 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LocalGems.Services;
-    
-public class AuthService
+namespace LocalGems.ViewModels
 {
-    public bool IsAuth()
+    public class FavoritesViewModel : BaseViewModel
     {
-        Thread.Sleep(1000);
-        return true;
     }
 }
-

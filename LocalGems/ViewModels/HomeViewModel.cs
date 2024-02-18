@@ -1,51 +1,74 @@
-﻿using LocalGems.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using LocalGems.Models;
 using LocalGems.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace LocalGems.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public partial class HomeViewModel : BaseViewModel
     {
-        ObservableCollection<User> _users;
-        ObservableCollection<Message> _recentChat;
+        public IDatabaseService databaseService;
+        public AuthService _authService;
 
-        public HomeViewModel()
+        [ObservableProperty]
+        private IEnumerable<User> _newlyAdded = Enumerable.Empty<User>();
+
+
+        [ObservableProperty]
+        private IEnumerable<User> _poplar = Enumerable.Empty<User>();
+
+        [ObservableProperty]
+        private IEnumerable<User> _random = Enumerable.Empty<User>();
+
+        [ObservableProperty]
+        private string _userName = "Stranger";
+
+        private bool _isInitialized;
+
+        public HomeViewModel(IDatabaseService databaseService, AuthService authService)
         {
-            LoadData();
+            this.databaseService = databaseService;
+            _authService = authService;
+            SetUserInfo();
         }
 
-        public ObservableCollection<User> Users
+        private void SetUserInfo()
         {
-            get { return _users; }
-            set
+            if ( !_authService.IsAuth())
             {
-                _users = value;
-                OnPropertyChanged();
+                UserName = "Stranger";
+            }
+            else
+            {
+                UserName = "Stranger";
             }
         }
 
-        public ObservableCollection<Message> RecentChat
+        public async Task InitializeAsync()
         {
-            get { return _recentChat; }
-            set
+            if (_isInitialized)
+                return;
+
+            IsBusy = true;
+            try
             {
-                _recentChat = value;
-                OnPropertyChanged();
+                NewlyAdded = databaseService.GetNewlyAddedUsers();
+                Poplar = databaseService.GetPopularUsers();
+                Random = databaseService.GetRandomUsers();
+
+
+                _isInitialized = true;
             }
-        }
+            catch (Exception ex)
+            {
+                await ShowAlertAsync("Error", ex.Message);
 
-        public ICommand DetailCommand => new Command<object>(OnNavigate);
-
-        void LoadData()
-        {
-            Users = new ObservableCollection<User>(MessageService.Instance.GetUsers());
-            RecentChat = new ObservableCollection<Message>(MessageService.Instance.GetChats());
-        }
-
-        void OnNavigate(object parameter)
-        {
-            NavigationService.Instance.NavigateToAsync<DetailViewModel>(parameter);
+            }
+            finally 
+            { 
+                IsBusy = false; 
+            }
         }
     }
 }

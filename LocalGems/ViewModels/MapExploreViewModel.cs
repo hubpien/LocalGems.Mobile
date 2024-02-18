@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace LocalGems.ViewModels
 {
-    public partial class MapExploreViewModel : ViewModelBase
+    public partial class MapExploreViewModel : BaseViewModel
     {
         User _user;
 
@@ -32,22 +32,6 @@ namespace LocalGems.ViewModels
             }
         }
 
-        public ICommand BackCommand => new Command(OnBack);
-
-        public override Task InitializeAsync(object navigationData)
-        {
-            if (navigationData is Message message)
-            {
-                User = message.Sender;
-            }
-
-            return base.InitializeAsync(navigationData);
-        }
-
-        void OnBack()
-        {
-            NavigationService.Instance.NavigateBackAsync();
-        }
 
 
 

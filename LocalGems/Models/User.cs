@@ -2,74 +2,30 @@
 
 namespace LocalGems.Models
 {
-    public class User
+    public partial class User : ObservableObject
     {
-        private Guid _Id;
+        public int Id { get; set; }
 
-        public Guid Id
-        {
-            get { return _Id; }
-            set { _Id = value; }
-        }
+        public string? Name { get; set; }
 
-        private string? _Name;
+        public string? Description { get; set; }
 
-        public string? Name
-        {
-            get { return _Name; }
-            set { _Name = value; }
-        }
+        public UserType Type { get; set; }
 
-        private string? _Description;
+        public string? Category { get; set; }
 
-        public string? Description
-        {
-            get { return _Description; }
-            set { _Description = value; }
-        }
+        public string? Image { get; set; }
 
-        private UserType _Type;
+        public Color? Color { get; set; }
 
-        public UserType Type
-        {
-            get { return _Type; }
-            set { _Type = value; }
-        }
+        public List<CustomMarker> Location { get; set; }
 
+        public List<Product> Products { get; set; }
 
-        private string? _Category;
+        public int Views { get; set; }
 
-        public string? Category
-        {
-            get { return _Category; }
-            set { _Category = value; }
-        }
-
-        private string? _Image;
-
-        public string Image
-        {
-            get { return _Image; }
-            set { _Image = value; }
-        }
-
-
-        private Color? _Color;
-
-        public Color Color
-        {
-            get { return _Color; }
-            set { _Color = value; }
-        }
-
-        private CustomMarker? _Location;
-
-        public CustomMarker Location
-        {
-            get { return _Location; }
-            set { _Location = value; }
-        }
-
+        [ObservableProperty]
+        private bool isFavorite;
 
     }
 }

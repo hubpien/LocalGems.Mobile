@@ -7,19 +7,10 @@
     xmlns:pages="clr-namespace:LocalGems.View"
     xmlns:navigationdrawer="clr-namespace:Syncfusion.Maui.NavigationDrawer;assembly=Syncfusion.Maui.NavigationDrawer"
     Shell.ForegroundColor="{StaticResource Primary}"
-    Shell.FlyoutBehavior="Flyout">
-    
-    <Shell.FlyoutHeader>
-        <Grid Padding="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Image Source="{Binding UserPhoto}" HeightRequest="100" WidthRequest="100"/>
-            <Label Text="{Binding UserName}" Grid.Row="1"/>
-        </Grid>
-    </Shell.FlyoutHeader>
-    
+    Shell.FlyoutBehavior="Disabled">
+
+
+
     <ShellContent Route="LoadingPage" 
                  ContentTemplate="{DataTemplate pages:LoadingPage}" 
                  FlyoutItemIsVisible="False"
@@ -35,33 +26,28 @@
                  ContentTemplate="{DataTemplate pages:RegisterPage}"
                  Shell.FlyoutBehavior="Disabled"/>
 
-    <FlyoutItem Title="MainPage">
-        <ShellContent Route="MainPage" Title="MainPage" ContentTemplate="{DataTemplate pages:MainPage}" />
-    </FlyoutItem>
-    
-    <FlyoutItem Title="Profil">
-        <Tab>
-            <ShellContent Title="StatsPage" Route="StatsPage" ContentTemplate="{DataTemplate pages:StatsPage}" />
-            <ShellContent Title="DetailPage" Route="DetailPage" ContentTemplate="{DataTemplate pages:DetailPage}" />
-        </Tab>
-        <ShellContent Title="ProfilPage"  Route="ProfilPage" ContentTemplate="{DataTemplate pages:ProfilPage}" />
-    </FlyoutItem>
 
-    <FlyoutItem Title="Explore">
-        <ShellContent Title="List" Route="ListExplerePage" ContentTemplate="{DataTemplate pages:ListExplerePage}" />
+    <TabBar>
+        <ShellContent Route="HomePage" 
+                      ContentTemplate="{DataTemplate pages:HomePage}" 
+                      Title="Home" />
 
-        <ShellContent Title="Map" Route="MapExplerePage" ContentTemplate="{DataTemplate pages:MapExplerePage}" />
-    </FlyoutItem>
-   
-    <FlyoutItem Title="Favorites">
-        <ShellContent Route="DetailPage" ContentTemplate="{DataTemplate pages:DetailPage}" />
-    </FlyoutItem>
-    
-    <FlyoutItem Title="Chat">
-        <ShellContent Route="ChatPage" ContentTemplate="{DataTemplate pages:ChatPage}" />
-    </FlyoutItem>
+        <ShellContent Title="Explore"
+                      ContentTemplate="{DataTemplate pages:ExplorePage}"
+                      Route="ExplorePage" />
 
-    
+        <ShellContent Title="Favorites"
+                      ContentTemplate="{DataTemplate pages:FavoritesPage}"
+                      Icon="heart"
+                      Route="FavoritesPage" />
 
+        <ShellContent Title="Profile"
+                      ContentTemplate="{DataTemplate pages:ProfilPage}"
+                      Icon="user"
+                      Route="ProfilePage" />
+
+
+
+    </TabBar>
 
 </Shell>

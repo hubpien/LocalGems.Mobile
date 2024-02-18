@@ -34,7 +34,7 @@ namespace LocalGems.ViewModels
 
         private async void OnLoginExecuted(object parameter)
         {
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
     }
 }

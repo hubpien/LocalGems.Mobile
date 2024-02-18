@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace LocalGems.ViewModels
 {
-    public class ListExploreViewModel : ViewModelBase
+    public class ExploreViewModel : BaseViewModel
     {
         User _user;
         //ObservableCollection<CustomMarker> _markers;

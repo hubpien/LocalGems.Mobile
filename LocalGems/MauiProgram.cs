@@ -1,4 +1,5 @@
-﻿using LocalGems.Services;
+﻿using CommunityToolkit.Maui;
+using LocalGems.Services;
 using LocalGems.View;
 using LocalGems.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ namespace LocalGems
         {
             var builder = MauiApp.CreateBuilder();
             builder
+                .UseMauiCommunityToolkit()
                 .UseMauiApp<App>()
                 .ConfigureSyncfusionCore()
                 .ConfigureFonts(fonts =>
@@ -26,8 +28,13 @@ namespace LocalGems
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<LoadingPage>();
-            builder.Services.AddTransient<MainPage>();
-            builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<HomeViewModel>();
+
+            builder.Services.AddTransient<ProfilPage>();
+            builder.Services.AddTransient<ProfilViewModel>();
+            builder.Services.AddTransient<DetailsPage>();
+            builder.Services.AddTransient<DetailsViewModel>();
 
             builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
 

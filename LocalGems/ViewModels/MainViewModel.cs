@@ -30,45 +30,6 @@ namespace LocalGems.ViewModels
             this.databaseService = databaseService;
         }
 
-        private void GetNearUsers()
-        {
-            Users = databaseService.GetUsers();   
-            UserTypes = new ObservableCollection<UserType>(Users.Select(u => u.Type).GroupBy(ut => ut.Value).Select(g => g.First()).ToList());
-
-        }
-
-        [RelayCommand]
-        async void Location()
-        {
-            Location location = await Geolocation.Default.GetLastKnownLocationAsync();
-
-            var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-            CurrentLocation = await Geolocation.GetLocationAsync(request);
-            GetNearUsers();
-        }
-
-
-        [RelayCommand]
-        async void Filter(UserType selectedUserType)
-        {
-            //TODO: filtorwanie po wiekszej ilosci parametrow
-            
-            //if (!selectedUserTypes.Contains(selectedUserType))
-            //{
-            //    selectedUserTypes.Add(selectedUserType);
-            //}
-            //else
-            //{
-            //    selectedUserTypes.Remove(selectedUserType);
-            //}
-            Users = databaseService?.GetUsers(selectedUserType.Value);
-        }
-
-        [RelayCommand]
-        async void NavigateToProfile(User user)
-        {
-            await Shell.Current.GoToAsync($"//{nameof(ProfilPage)}");
-
-        }
+       
     }
 }

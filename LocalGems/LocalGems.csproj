@@ -47,7 +47,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -58,26 +57,35 @@
 
 	<ItemGroup>
 	  <AndroidResource Remove="Models\NewFolder\**" />
-	  <AndroidResource Remove="NewFolder\**" />
 	  <Compile Remove="Models\NewFolder\**" />
-	  <Compile Remove="NewFolder\**" />
 	  <EmbeddedResource Remove="Models\NewFolder\**" />
-	  <EmbeddedResource Remove="NewFolder\**" />
 	  <MauiCss Remove="Models\NewFolder\**" />
-	  <MauiCss Remove="NewFolder\**" />
 	  <MauiXaml Remove="Models\NewFolder\**" />
-	  <MauiXaml Remove="NewFolder\**" />
 	  <None Remove="Models\NewFolder\**" />
-	  <None Remove="NewFolder\**" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\breed.svg" />
+	  <None Remove="Resources\Images\calendar.svg" />
+	  <None Remove="Resources\Images\female.svg" />
+	  <None Remove="Resources\Images\heart.svg" />
+	  <None Remove="Resources\Images\heart_filled.svg" />
+	  <None Remove="Resources\Images\home.svg" />
+	  <None Remove="Resources\Images\img_21.jpg" />
+	  <None Remove="Resources\Images\img_22.jpg" />
+	  <None Remove="Resources\Images\left_arrow.svg" />
+	  <None Remove="Resources\Images\list.svg" />
+	  <None Remove="Resources\Images\male.svg" />
 	  <None Remove="Resources\Images\profile.png" />
+	  <None Remove="Resources\Images\right_arrow.svg" />
 	  <None Remove="Resources\Images\side-img.png" />
+	  <None Remove="Resources\Images\undraw_confirmed.svg" />
+	  <None Remove="Resources\Images\user.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Bogus" Version="35.4.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
@@ -92,19 +100,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\ChatPage.xaml">
+	  <MauiXaml Update="Controls\UserFeatControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\ListExplorePage.xaml">
+	  <MauiXaml Update="View\ExplorePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\MapExplorePage.xaml">
+	  <MauiXaml Update="View\FavoritesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\DetailPage.xaml">
+	  <MauiXaml Update="View\MapExplorePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\LoadingPage.xaml">
@@ -122,6 +130,9 @@
 	  <MauiXaml Update="View\StatsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\DetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Templates\RecentChatItemTemplate.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -134,11 +145,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\DetailPage.xaml.cs">
-	    <DependentUpon>DetailPage.xaml</DependentUpon>
+	  <Compile Update="Controls\UserFeatControl.xaml.cs">
+	    <DependentUpon>UserFeatControl.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\ListExplorePage.xaml.cs">
-	    <DependentUpon>ListExplorePage.xaml</DependentUpon>
+	  <Compile Update="View\ExplorePage.xaml.cs">
+	    <DependentUpon>ExplorePage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\MapExplorePage.xaml.cs">
 	    <DependentUpon>MapExplorePage.xaml</DependentUpon>

@@ -16,9 +16,9 @@ public partial class LoadingPage : ContentPage
     {
         base.OnNavigatedTo(args);
 
-        if (await _authService.IsAuth())
+        if (_authService.IsAuth())
         {
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
         else
         {

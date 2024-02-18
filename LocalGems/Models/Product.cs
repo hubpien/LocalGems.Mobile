@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace LocalGems.Models
 {
-    public class Post
+    public class Product
     {
         public Guid Id { get; init; }
 
         public Guid UserId { get; init; }
 
 
+        public string Name { get; set; }
+
         public string Description { get; set; }
 
-        public string Tags { get; set; }
+        public string[] Tags { get; set; }
 
         public string ImageUrl { get; set; }
 
@@ -32,7 +34,7 @@ namespace LocalGems.Models
 
         ICollection<User> Users { get; set; }
 
-        public Post()
+        public Product()
         {
             this.Users = new HashSet<User>();
         }
