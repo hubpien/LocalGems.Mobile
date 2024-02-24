@@ -26,15 +26,21 @@ namespace LocalGems
     		builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<AuthService>();
-            builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<LoginPage, LoginPageViewModel>();
             builder.Services.AddSingleton<LoadingPage>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<HomeViewModel>();
 
             builder.Services.AddTransient<ProfilPage>();
             builder.Services.AddTransient<ProfilViewModel>();
+
             builder.Services.AddTransient<DetailsPage>();
             builder.Services.AddTransient<DetailsViewModel>();
+
+            builder.Services.AddTransient<ExplorePage>();
+            builder.Services.AddTransient<ExploreViewModel>();
+            
+            builder.Services.AddTransient<FavoritesPage, FavoritesViewModel>();
 
             builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
 

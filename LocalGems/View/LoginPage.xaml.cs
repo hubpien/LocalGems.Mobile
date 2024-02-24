@@ -1,14 +1,19 @@
 using LocalGems.Services;
+using Syncfusion.Maui.Core.Carousel;
 
 namespace LocalGems.View;
 
 public partial class LoginPage : ContentPage
 {
-    public LoginPage()
-	{
-		InitializeComponent();
+    private readonly LoginPageViewModel _viewModel;
 
+    public LoginPage(LoginPageViewModel vm)
+    {
+        InitializeComponent();
 
-	}
+        _viewModel = vm;
+        BindingContext = vm;
+
+    }
 
 }

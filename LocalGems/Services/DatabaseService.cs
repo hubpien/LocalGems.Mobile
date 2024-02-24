@@ -76,6 +76,11 @@ namespace LocalGems.Services
             return _users.FirstOrDefault(x => x.Id == userId);
         }
 
+        public User GetUser()
+        {
+            return _users.FirstOrDefault();
+        }
+
         public IEnumerable<User> GetNewlyAddedUsers(string selectedUserTypes = null)
         {
             return _users
@@ -117,9 +122,20 @@ namespace LocalGems.Services
             return _users;
         }
 
-        public Task ToggleFavoritesAsync(int userId)
+        public User ToggleFavoritesAsync(int userId)
         {
-            throw new NotImplementedException();
+            var user = GetUser(userId);
+
+            if (user != null)
+            {
+                user.IsFavorite = !user.IsFavorite;
+            }
+            return user;
+        }
+
+        public IEnumerable<User> GetUserFavoritesAsync()
+        {
+            return _users.Where(x => x.IsFavorite == true);
         }
     }
 

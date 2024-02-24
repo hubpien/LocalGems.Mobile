@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LocalGems.Models;
+using LocalGems.Services;
 using LocalGems.View;
 using System;
 using System.Collections.Generic;
@@ -11,30 +12,54 @@ using System.Windows.Input;
 
 namespace LocalGems.ViewModels
 {
+    [QueryProperty(nameof(IsFirstTime), nameof(IsFirstTime))]
     public partial class LoginPageViewModel : BaseViewModel
     {
-        /// <summary>
-        /// Gets or sets the login form model.
-        /// </summary>
-        public LoginFormModel LoginFormModel { get; set; }
-        public ICommand LoginCommand { get; }
-
-        public LoginPageViewModel()
+        public LoginPageViewModel(AuthService authService)
         {
-            this.LoginFormModel = new LoginFormModel();
-            LoginCommand = new Command(OnLoginExecuted, CanLoginExecute);
+            _authService = authService;
         }
 
-        private bool CanLoginExecute(object parameter)
+        [ObservableProperty]
+        private bool _isRegistrationMode;
+
+        [ObservableProperty]
+        private LoginRegisterModel _model = new();
+
+        [ObservableProperty]
+        private bool _isFirstTime;
+        private readonly AuthService _authService;
+
+        partial void OnIsFirstTimeChanging(bool value)
         {
-            // Tutaj możesz dodać logikę sprawdzającą, czy komenda może być wykonana.
-            // Na przykład: upewnij się, że email i hasło nie są puste.
-            return true;
+            if (value)
+                IsRegistrationMode = true;
         }
 
-        private async void OnLoginExecuted(object parameter)
+        [RelayCommand]
+        private void ToggleMode() => IsRegistrationMode = !IsRegistrationMode;
+
+        [RelayCommand]
+        private async Task SkipForNow() => await GoToAsync($"//{nameof(HomePage)}");
+
+        [RelayCommand]
+        private async Task Submit()
         {
-            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+            if (!Model.Validate(IsRegistrationMode))
+            {
+                await ShowToastAsync("All fields are mendatory");
+                return;
+            }
+
+            IsBusy = true;
+
+            // Make Api call to login/register user
+            var status = await _authService.LoginRegisterAsync(Model);
+            if (status)
+            {
+                await SkipForNow();
+            }
+            IsBusy = false;
         }
     }
 }

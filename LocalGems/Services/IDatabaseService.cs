@@ -1,6 +1,7 @@
 ﻿
 
 
+
 namespace LocalGems.Services
 {
     public interface IDatabaseService
@@ -14,6 +15,12 @@ namespace LocalGems.Services
 
         public User GetUser(int userId);
 
-        Task ToggleFavoritesAsync(int userId);
+        public User GetUser();
+
+        User ToggleFavoritesAsync(int userId);
+
+        IEnumerable<User> GetAllUsers();
+
+        IEnumerable<User> GetUserFavoritesAsync();
     }
 }

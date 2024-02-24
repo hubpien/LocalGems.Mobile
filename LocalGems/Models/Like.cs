@@ -8,10 +8,11 @@ namespace LocalGems.Models
 {
     public class Like
     {
-        public Guid PostId { get; set; }
-        public Product Post { get; set; }
+        public int UserId { get; set; }
+        public int ProductId { get; set; }
 
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+
+        public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

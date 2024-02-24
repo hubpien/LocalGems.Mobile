@@ -100,7 +100,7 @@
               Grid.Row="0"
               Grid.Column="2"
               Padding="5"
-              BackgroundColor="White"
+              BackgroundColor="Transparent"
               StrokeThickness="0"
               VerticalOptions="End">
                 <Label

@@ -6,19 +6,55 @@ using System.Windows.Input;
 
 namespace LocalGems.ViewModels
 {
-    public class ExploreViewModel : BaseViewModel
+    public partial class ExploreViewModel : BaseViewModel
     {
-        User _user;
-        //ObservableCollection<CustomMarker> _markers;
+         private IDatabaseService _databaseService;
 
-        public User User
+        public ExploreViewModel(IDatabaseService databaseService)
         {
-            get { return _user; }
-            set
+            _databaseService = databaseService;
+        }
+
+        [ObservableProperty]
+        private IEnumerable<User> users = Enumerable.Empty<User>();
+
+        [ObservableProperty]
+        private bool isRefreshing;
+
+        private bool isInitialized;
+
+        public async Task InitializeAsync()
+        {
+            if (isInitialized)
+                return;
+            isInitialized = true;
+
+            await LoadAllUsers(true);
+        }
+
+        private async Task LoadAllUsers(bool initialLoad)
+        {
+            if (initialLoad)
+                IsBusy = true;
+            else
+                IsRefreshing = true;
+            try
             {
-                _user = value;
-                OnPropertyChanged();
+                await Task.Delay(100);
+                Users = _databaseService.GetAllUsers();
+                
+            }
+            catch (Exception ex)
+            {
+                await ShowAlertAsync("Error in loading pets", ex.Message);
+            }
+            finally
+            {
+                IsBusy = IsRefreshing = false;
             }
         }
+
+        [RelayCommand]
+        private async Task LoadUsers() => await LoadAllUsers(false);
     }
 }

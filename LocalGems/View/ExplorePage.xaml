@@ -5,37 +5,89 @@
              xmlns:rp="clr-namespace:LocalGems.Repository"
              xmlns:behavior="clr-namespace:LocalGems.Behavior"
              xmlns:model="clr-namespace:LocalGems.Models"
+             xmlns:vm="clr-namespace:LocalGems.ViewModels"
              xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
              x:Class="LocalGems.View.ExplorePage"
+             x:DataType="vm:ExploreViewModel"
              xmlns:card="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView">
-    <ContentPage.BindingContext>
-        <rp:UsersRepository />
-    </ContentPage.BindingContext>
+    <Grid>
+        <RefreshView
+           Command="{Binding LoadUsersCommand}"
+           IsRefreshing="{Binding IsRefreshing}"
+           RefreshColor="{StaticResource Primary}">
+            <Grid RowDefinitions="Auto, *">
+                <Label
+                   Grid.Row="0"
+                   Padding="5"
+                   FontSize="12"
+                   HorizontalOptions="Center"
+                   Text="Pull to refresh"
+                   TextColor="{StaticResource Gray500}" />
+                <ScrollView Grid.Row="1" Padding="5">
+                    <CollectionView ItemsSource="{Binding Users}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="{x:Type model:User}">
+                                <VerticalStackLayout Margin="5,10">
+                                    <Border
+                                       BackgroundColor="White"
+                                       StrokeShape="RoundRectangle 15, 0, 0, 0"
+                                       StrokeThickness="0">
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="15">
+                                            <Image
+                                               Grid.Column="0"
+                                               Aspect="AspectFill"
+                                               HeightRequest="125"
+                                               Source="{Binding Image}"
+                                               WidthRequest="125">
+                                                <Image.Shadow>
+                                                    <Shadow Brush="{StaticResource Primary}" Radius="50" />
+                                                </Image.Shadow>
+                                            </Image>
 
-    <syncfusion:SfListView x:Name="listView" 
-                   ItemsSource="{Binding Users}"
-                   ItemSize="100">
-        <syncfusion:SfListView.ItemTemplate>
+                                            <VerticalStackLayout
+                                               Grid.Column="1"
+                                               Spacing="10"
+                                               VerticalOptions="Center">
+                                                <Label
+                                                   FontAttributes="Bold"
+                                                   FontSize="22"
+                                                   Text="{Binding Name}"
+                                                   TextColor="{StaticResource Primary}" />
+                                                <Label
+                                                   FontSize="16"
+                                                   Text="{Binding Description}"
+                                                   TextColor="{StaticResource Gray600}" />
+                                                <Label
+                                                   FontAttributes="Bold"
+                                                   FontSize="18"
+                                                   Text="{Binding Views}"
+                                                   TextColor="{StaticResource Primary}" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                    <BoxView
+                                       Margin="0,-1,0,0"
+                                       HeightRequest="1"
+                                       Opacity="0.3"
+                                       Color="{StaticResource Primary}" />
 
-            <DataTemplate>
-                <Grid Padding="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.1*"/>
-                        <ColumnDefinition Width="0.9*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.4*" />
-                        <RowDefinition Height="0.6*" />
-                    </Grid.RowDefinitions>
-                    <Image Grid.Column="0" Source="Resources/profile.png"> </Image>
+                                    <VerticalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ExploreViewModel}}, Path=GoToDetailsPageCommand}" CommandParameter="{Binding Id}" />
+                                    </VerticalStackLayout.GestureRecognizers>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Grid>
+        </RefreshView>
 
-                    <Label Grid.Column="1"  Text="{Binding Name}" FontAttributes="Bold" TextColor="{StaticResource PrimaryDarkText}" FontSize="21" />
-                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Description}" TextColor="{StaticResource PrimaryDarkText}" FontSize="15"/>
-                </Grid>
-            </DataTemplate>
-        </syncfusion:SfListView.ItemTemplate>
-    </syncfusion:SfListView>
-    
+        <ActivityIndicator
+           HorizontalOptions="Center"
+           IsRunning="{Binding IsBusy}"
+           VerticalOptions="Center"
+           Color="{StaticResource Primary}" />
+    </Grid>
 
 </ContentPage>

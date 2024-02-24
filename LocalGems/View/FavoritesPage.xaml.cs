@@ -1,9 +1,21 @@
+using Syncfusion.Maui.Core.Carousel;
+
 namespace LocalGems.View;
 
 public partial class FavoritesPage : ContentPage
 {
-	public FavoritesPage()
-	{
-		InitializeComponent();
-	}
+    private readonly FavoritesViewModel _viewModel;
+
+    public FavoritesPage(FavoritesViewModel viewModel)
+    {
+        InitializeComponent();
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await _viewModel.InitializeAsync();
+    }
 }

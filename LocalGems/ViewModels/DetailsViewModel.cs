@@ -34,8 +34,6 @@ namespace LocalGems.ViewModels
             IsBusy = true;
             try
             {
-                await Task.Delay(100);
-
 
                 User = databaseService.GetUser(UserId);
             }
@@ -103,20 +101,18 @@ namespace LocalGems.ViewModels
 
 
         [RelayCommand]
-        private async Task ToggleFavorite()
+        private void ToggleFavorite()
         {
             if (!_authService.IsAuth())
             {
-                await ShowToastAsync("You need to be logged in to mark this pet as favorite");
+                ShowToastAsync("You need to be logged in to mark this pet as favorite");
                 return;
             }
-
-            User.IsFavorite = !User.IsFavorite;
 
             try
             {
                 IsBusy = true;
-                await databaseService.ToggleFavoritesAsync(UserId);
+                databaseService.ToggleFavoritesAsync(UserId);
                 IsBusy = false;
             }
             catch (Exception ex)
@@ -126,7 +122,7 @@ namespace LocalGems.ViewModels
                 //Revert 
                 User.IsFavorite = !User.IsFavorite;
 
-                await ShowAlertAsync("Error in toggling favorite status", ex.Message);
+                ShowAlertAsync("Error in toggling favorite status", ex.Message);
             }
         }
     }
